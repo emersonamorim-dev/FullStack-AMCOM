@@ -1,0 +1,113 @@
+<p-toast></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button pButton pRipple label="Cadastrar Books" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+
+        </ng-template>
+    </p-toolbar>
+
+    <label for="orderBy">Ordenar por:</label>
+    <p-dropdown id="orderBy" [options]="options" [(ngModel)]="selectedOrder" (onChange)="onOrderByChange($event.value)">
+        <ng-template pTemplate="selectedItem" let-item>
+            {{item.label}}
+        </ng-template>
+        <ng-template pTemplate="item" let-item>
+            {{item.label}}
+        </ng-template>
+    </p-dropdown>
+
+    <p-table #dt [value]="book" [rows]="10" [paginator]="true" [globalFilterFields]="['titulo','country.titulo','representative.titulo','status']"
+        [(selection)]="selectedBook" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Mostrando {first} para {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">CADASTRO DE BOOKS</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Edição</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+              <td>
+              </td>
+              <td>{{item.titulo}}</td>
+              <td>{{item.autor}}</td>
+              <td>{{item.edicao}}</td>
+              <td>
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editBook(item)"></button>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteBook(item)"></button>
+              </td>
+          </tr>
+      </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<form #form="ngForm" (ngSubmit)="addBook()">
+  <p-dialog [(visible)]="bookDialog" [style]="{width: '450px'}" header="Cadastro Books" [modal]="true" styleClass="p-fluid">
+      <ng-template pTemplate="content">
+          <div class="p-field">
+
+              <label for="titulo">Título:</label>
+              <input type="text" pInputText class="form-control" id="titulo" name="titulo" [(ngModel)]="addBookRequest.titulo">
+
+          </div>
+          <div class="p-field">
+              <label for="autor">Autor:</label>
+              <input type="text" pInputText class="form-control" id="autor" name="autor" [(ngModel)]="addBookRequest.autor">
+
+          </div>
+
+          <div class="p-field">
+            <label for="edicao">Edição:</label>
+            <input type="text" pInputText class="form-control" id="edicao" name="edicao" [(ngModel)]="addBookRequest.edicao">
+
+        </div>
+
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="hideDialog()"></button>
+        <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text"></button>
+    </ng-template>
+
+
+</p-dialog>
+
+</form>
+
+
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+
+
+
+
+
