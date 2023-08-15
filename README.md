@@ -12,6 +12,10 @@ Uma aplicação Full Stack para gerenciar uma lista de livros. O backend é cons
 
 - **Angular**: Framework JavaScript utilizado para desenvolver a interface da aplicação.
 - **TypeScript**: Superset do JavaScript que adiciona tipagem estática.
+- **node_modules.rar**: Descompacte o pacote Node_Modules.rar dentro da pasta Frontend e instale os PrimeNG para fazer aplicação rodar sem erros:
+
+- npm install primeng --save
+- npm install primeicons --save
 
 ## Instalação
 
